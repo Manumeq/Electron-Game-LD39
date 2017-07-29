@@ -92,6 +92,36 @@ public class Player : MonoBehaviour
 
     }
 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "RedBattery")
+        {
+            hp -= 40 * Time.deltaTime;
+            if (score >= 5)
+            {
+                score = score - 5;
+            }
+            scoreText.GetComponent<Text>().text = "Score: " + score;
+        }
+        if (other.tag == "BlueBattery")
+        {
+            hp += 40 * Time.deltaTime;
+            if (hp > 100)
+            {
+                hp = 100;
+            }
+        }
+        if (other.tag == "Changer")
+        {
+            score = score + 10;
+            scoreText.GetComponent<Text>().text = "Score: " + score;
+            Destroy(other.gameObject);
+            CollisionChanger();
+
+        }
+    }
+
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         /*if (collision.tag == "Changer")
@@ -105,6 +135,9 @@ public class Player : MonoBehaviour
         {
             killPlayer();
         }*/
+
+
+        /*
         if (collision.tag == "RedBattery")
         {
             hp -= 20;
@@ -133,6 +166,7 @@ public class Player : MonoBehaviour
             CollisionChanger();
 
         }
+        */
 
     }
 
