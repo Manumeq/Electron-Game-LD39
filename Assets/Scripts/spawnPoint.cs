@@ -6,8 +6,7 @@ using UnityEngine;
 public class spawnPoint : MonoBehaviour {
     public int creationSpeed;
     private float tiempo;
-    public GameObject[] barrasPositivas;
-    public GameObject barraNegativa;
+    public GameObject[] barras;
     private int selectorPila;
 	// Use this for initialization
 	void Start () {
@@ -21,11 +20,11 @@ public class spawnPoint : MonoBehaviour {
             Destroy(gameObject);
         }
         tiempo -= creationSpeed * Time.deltaTime;
+        selectorPila = UnityEngine.Random.Range(0, barras.Length);
         if (tiempo < 0)
         {
             tiempo = 5;
-            selectorPila = UnityEngine.Random.Range(0, barrasPositivas.Length);
-            Instantiate(barrasPositivas[selectorPila], gameObject.transform.position, gameObject.transform.rotation);
+            Instantiate(barras[selectorPila], gameObject.transform.position, gameObject.transform.rotation);
         }
 	}
 

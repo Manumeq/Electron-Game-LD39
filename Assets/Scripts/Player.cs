@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
         }
         if (collision.tag == "BlueBattery")
         {
-            hp += 20;
+            hp += 40;
         }
         if (collision.tag == "Changer")
         {
