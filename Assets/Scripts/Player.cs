@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     public float minHP = 0f;
     public Slider hpBar;
     private float decreaseSpeed = 1f;
+    private GameObject percentText;
+    private GameObject scoreText;
+    private int score;
 
     public SpriteRenderer sprenderer;
     public Rigidbody2D rigidBody;
@@ -26,6 +29,13 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        score = 0;
+        percentText = GameObject.Find("Percent");
+        scoreText = GameObject.Find("Score");
+
+        percentText.GetComponent<Text>().text = hp.ToString() + "%";
+        scoreText.GetComponent<Text>().text = "Score: " + score;
+
         hpBar.value = hp;
         start = false;
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -36,7 +46,7 @@ public class Player : MonoBehaviour
         colors[2] = new Color(0, 255, 0);
         colors[3] = new Color(0, 0, 255);
         */
-        setRandomColor();
+        //setRandomColor();
     }
 
     // Update is called once per frame
@@ -48,6 +58,8 @@ public class Player : MonoBehaviour
             decreaseSpeed += (1f * Time.deltaTime);
 
             hpBar.value = hp;
+            percentText.GetComponent<Text>().text = hp.ToString("#") + "%";
+
             if (hp <= 0)
             {
                 killPlayer();
@@ -87,10 +99,22 @@ public class Player : MonoBehaviour
         if (collision.tag == "RedBattery")
         {
             hp -= 20;
+            if (score >= 5)
+            {
+                score = score - 5;
+            }
+            scoreText.GetComponent<Text>().text = "Score: " + score;
         }
         if (collision.tag == "BlueBattery")
         {
-            hp = 100;
+            hp += 20;
+        }
+        if (collision.tag == "Changer")
+        {
+            score = score + 10;
+            scoreText.GetComponent<Text>().text = "Score: " + score;
+            Destroy(collision.gameObject);
+
         }
 
     }
