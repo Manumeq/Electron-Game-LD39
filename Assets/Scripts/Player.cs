@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public GameObject Spawnspawn;
     public GameObject DestroyPoint;
     public GameObject Changer;
+    public GameObject spawnCirculo;
 
     public Color[] colors;
 
@@ -58,7 +59,7 @@ public class Player : MonoBehaviour
         //comenzamos a perder energia cuando empieza el juego
         if (start) { 
             hp = hp - (decreaseSpeed * Time.deltaTime);
-            decreaseSpeed += (1f * Time.deltaTime);
+            decreaseSpeed += (0.05f * Time.deltaTime);
 
             hpBar.value = hp;
             percentText.GetComponent<Text>().text = hp.ToString("#") + "%";
@@ -78,14 +79,9 @@ public class Player : MonoBehaviour
             //esto evita que pasen cosas raras al empezar
             if (start)
             {
-                if (Time.deltaTime < 0.025)
-                {
-                    rigidBody.velocity = Vector2.up * jumpForce * Time.deltaTime;
-                }
-                else
-                {
-                    rigidBody.velocity = Vector2.up * jumpForce * 0.025f;
-                }
+
+                rigidBody.velocity = Vector2.up * jumpForce;
+               
             }
             else
             {
@@ -175,11 +171,19 @@ public class Player : MonoBehaviour
     }
     void CollisionChanger()
     {
-        Debug.Log("asañlkjdf");
         Vector3 variable = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 6, gameObject.transform.position.z);
         Instantiate(Changer, variable, gameObject.transform.rotation);
-        Spawnspawn.GetComponent<spawnSpawn>().condition = true;
-        Debug.Log(Spawnspawn.GetComponent<spawnSpawn>().condition);
-        DestroyPoint.GetComponent<SpawnDestroy>().condition = true;
+        int random = Random.Range(0, 2);
+        switch (random)
+        {
+            case 0:
+                Spawnspawn.GetComponent<spawnSpawn>().condition = true;
+                DestroyPoint.GetComponent<SpawnDestroy>().condition = true;
+                break;
+            case 1:
+                Debug.Log("Entro");
+                spawnCirculo.GetComponent<SpawnCircle>().condition = true;
+                break;
+        }
     }
 }
