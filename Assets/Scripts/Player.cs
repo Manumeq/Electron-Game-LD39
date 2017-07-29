@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Changer")
+        /*if (collision.tag == "Changer")
         {
             setRandomColor();
             Destroy(collision.gameObject);
@@ -83,6 +83,14 @@ public class Player : MonoBehaviour
         if (collision.tag!=currentColor)
         {
             killPlayer();
+        }*/
+        if (collision.tag == "RedBattery")
+        {
+            hp -= 20;
+        }
+        if (collision.tag == "BlueBattery")
+        {
+            hp = 100;
         }
 
     }

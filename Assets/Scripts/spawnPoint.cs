@@ -15,6 +15,7 @@ public class spawnPoint : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        Debug.Log(gameObject.transform.position.y);
         tiempo -= creationSpeed * Time.deltaTime;
         if (tiempo < 0)
         {
