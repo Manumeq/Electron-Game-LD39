@@ -8,6 +8,7 @@ public class spawnPoint : MonoBehaviour {
     private float tiempo;
     public GameObject barraPositiva;
     public GameObject barraNegativa;
+    
 	// Use this for initialization
 	void Start () {
         tiempo = 0;
@@ -15,7 +16,11 @@ public class spawnPoint : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(gameObject.transform.position.y);
+        if (Camera.main.gameObject.transform.position.y - gameObject.transform.position.y > 10)
+        {
+            Destroy(gameObject);
+        }
+        Debug.Log(Camera.main.gameObject.transform.position.y);
         tiempo -= creationSpeed * Time.deltaTime;
         if (tiempo < 0)
         {

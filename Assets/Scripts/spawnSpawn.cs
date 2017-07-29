@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class spawnSpawn : MonoBehaviour {
     private bool mov;
+    public bool condition;
     public GameObject spawnPoint;
 	// Use this for initialization
 	void Start () {
@@ -17,9 +18,11 @@ public class spawnSpawn : MonoBehaviour {
             Instantiate(spawnPoint, gameObject.transform.position, gameObject.transform.rotation);
             mov = false;
         }
-        if (gameObject.transform.position.y % 10 == 0)
+        Debug.Log(gameObject.transform.position.y % 10);
+        if (gameObject.transform.position.y % 10 > 0&& gameObject.transform.position.y % 10<1&&condition)
         {
             mov = true;
+            condition = false;
         }
 	}
 }
