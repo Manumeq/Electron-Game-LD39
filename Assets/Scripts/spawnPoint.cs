@@ -6,9 +6,9 @@ using UnityEngine;
 public class spawnPoint : MonoBehaviour {
     public int creationSpeed;
     private float tiempo;
-    public GameObject barraPositiva;
+    public GameObject[] barrasPositivas;
     public GameObject barraNegativa;
-    
+    private int selectorPila;
 	// Use this for initialization
 	void Start () {
         tiempo = 0;
@@ -24,7 +24,8 @@ public class spawnPoint : MonoBehaviour {
         if (tiempo < 0)
         {
             tiempo = 5;
-            Instantiate(barraPositiva, gameObject.transform.position, gameObject.transform.rotation);
+            selectorPila = UnityEngine.Random.Range(0, barrasPositivas.Length);
+            Instantiate(barrasPositivas[selectorPila], gameObject.transform.position, gameObject.transform.rotation);
         }
 	}
 

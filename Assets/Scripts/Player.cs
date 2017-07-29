@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
     public SpriteRenderer sprenderer;
     public Rigidbody2D rigidBody;
     public GameObject deathPlayer;
+    public GameObject Spawnspawn;
+    public GameObject DestroyPoint;
+    public GameObject Changer;
 
     public Color[] colors;
 
@@ -65,7 +68,10 @@ public class Player : MonoBehaviour
                 killPlayer();
             }
         }
-
+        if (Camera.main.gameObject.transform.position.y - gameObject.transform.position.y > Camera.main.gameObject.GetComponent<Camera>().orthographicSize)
+        {
+            killPlayer();
+        }
         if (Input.GetButtonDown("Jump") || Input.GetMouseButtonDown(0))
         {
             //al empezar se pone la gravedad a 0 hasta la primera ejecucion del update donde se pone su valor normal
@@ -114,6 +120,7 @@ public class Player : MonoBehaviour
             score = score + 10;
             scoreText.GetComponent<Text>().text = "Score: " + score;
             Destroy(collision.gameObject);
+            CollisionChanger();
 
         }
 
@@ -122,6 +129,9 @@ public class Player : MonoBehaviour
     void killPlayer()
     {
         //deathPlayer.GetComponent<ParticleSystem>().startColor = gameObject.GetComponent<SpriteRenderer>().color;
+        hp = 0;
+        hpBar.value = hp;
+        percentText.GetComponent<Text>().text =  "0%";
         Instantiate(deathPlayer, transform.position, transform.rotation);
         Destroy(gameObject);
     }
@@ -148,5 +158,14 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
+    }
+    void CollisionChanger()
+    {
+        Debug.Log("asañlkjdf");
+        Vector3 variable = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 6, gameObject.transform.position.z);
+        Instantiate(Changer, variable, gameObject.transform.rotation);
+        Spawnspawn.GetComponent<spawnSpawn>().condition = true;
+        Debug.Log(Spawnspawn.GetComponent<spawnSpawn>().condition);
+        DestroyPoint.GetComponent<SpawnDestroy>().condition = true;
     }
 }

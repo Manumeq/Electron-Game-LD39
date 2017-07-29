@@ -11,7 +11,7 @@ public class Destroy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Camera.main.gameObject.transform.position.y - gameObject.transform.position.y > 15)
+        if (Camera.main.gameObject.transform.position.y - gameObject.transform.position.y > 30)
         {
             Destroy(gameObject);
         }
