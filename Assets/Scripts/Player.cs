@@ -78,7 +78,14 @@ public class Player : MonoBehaviour
             //esto evita que pasen cosas raras al empezar
             if (start)
             {
-                rigidBody.velocity = Vector2.up * jumpForce * Time.deltaTime;
+                if (Time.deltaTime < 0.025)
+                {
+                    rigidBody.velocity = Vector2.up * jumpForce * Time.deltaTime;
+                }
+                else
+                {
+                    rigidBody.velocity = Vector2.up * jumpForce * 0.025f;
+                }
             }
             else
             {
