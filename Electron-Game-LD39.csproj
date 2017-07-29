@@ -87,11 +87,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Destroy.cs" />
     <Compile Include="Assets\Scripts\Dumper.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
     <Compile Include="Assets\Scripts\pila_horizontal.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Rotator.cs" />
+    <Compile Include="Assets\Scripts\SpawnDestroy.cs" />
     <Compile Include="Assets\Scripts\spawnPoint.cs" />
     <Compile Include="Assets\Scripts\spawnSpawn.cs" />
   </ItemGroup>

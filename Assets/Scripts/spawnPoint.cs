@@ -20,7 +20,6 @@ public class spawnPoint : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        Debug.Log(Camera.main.gameObject.transform.position.y);
         tiempo -= creationSpeed * Time.deltaTime;
         if (tiempo < 0)
         {
