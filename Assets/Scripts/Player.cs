@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     public GameObject DestroyPoint;
     public GameObject Changer;
     public GameObject spawnCirculo;
+    public GameObject spawnMolinoI;
+    public GameObject spawnMolinoD;
 
     public Color[] colors;
 
@@ -99,7 +101,7 @@ public class Player : MonoBehaviour
             hp -= 40 * Time.deltaTime;
             if (score >= 5)
             {
-                score = score - 5;
+                score = score - 1;
             }
             scoreText.GetComponent<Text>().text = "Score: " + score;
         }
@@ -205,9 +207,10 @@ public class Player : MonoBehaviour
     }
     void CollisionChanger()
     {
-        Vector3 variable = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 6, gameObject.transform.position.z);
+        Vector3 variable = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 8, gameObject.transform.position.z);
         Instantiate(Changer, variable, gameObject.transform.rotation);
-        int random = Random.Range(0, 2);
+        int random = Random.Range(0, 3);
+        int random2 = Random.Range(0, 2);
         switch (random)
         {
             case 0:
@@ -215,8 +218,18 @@ public class Player : MonoBehaviour
                 DestroyPoint.GetComponent<SpawnDestroy>().condition = true;
                 break;
             case 1:
-                Debug.Log("Entro");
                 spawnCirculo.GetComponent<SpawnCircle>().condition = true;
+                break;
+            case 2:
+                
+                if (random2 == 0)
+                {
+                    spawnMolinoI.GetComponent<spawnMolino>().condition = true;
+                }
+                else
+                {
+                    spawnMolinoD.GetComponent<spawnMolino>().condition = true;
+                }
                 break;
         }
     }
