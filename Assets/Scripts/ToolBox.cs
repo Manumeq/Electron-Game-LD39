@@ -26,26 +26,34 @@ public class ToolBox : Singleton<ToolBox> {
         armadura = 0;
         extraVida = 0;
     }
+
+    //9999
     public void comprarPolarizacion()
     {
 
     }
+    //400
     public void comprarAceleracion()
     {
         aceleracion = 0.02f;
     }
+    //300
     public void comprarVidaMax()
     {
 
     }
+    //1500
     public void comprarArmadura()
     {
         armadura = 20;
     }
+
+    //3000
     public void comprarScore()
     {
         puntuacion = 4;
     }
+    //5000
     public void comprarRevivir()
     {
 
