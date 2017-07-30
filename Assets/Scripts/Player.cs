@@ -23,6 +23,10 @@ public class Player : MonoBehaviour
 
     public AudioSource pickScore;
     public AudioSource getHealth;
+    public AudioSource loseHealth;
+    public AudioSource Death;
+    public AudioSource pickHealth;
+    public AudioSource salto;
     public SpriteRenderer sprenderer;
     public Rigidbody2D rigidBody;
     public GameObject deathPlayer;
@@ -66,7 +70,7 @@ public class Player : MonoBehaviour
         //comenzamos a perder energia cuando empieza el juego
         if (start) { 
             hp = hp - (decreaseSpeed * Time.deltaTime);
-            decreaseSpeed += (0.05f * Time.deltaTime);
+            decreaseSpeed += (0.05f * Time.deltaTime - toolbox.aceleracion);
 
             hpBar.value = hp;
             percentText.GetComponent<Text>().text = hp.ToString("#") + "%";
@@ -122,7 +126,7 @@ public class Player : MonoBehaviour
         }
         if (other.tag == "Changer")
         {
-            score = score + 10;
+            score = score + 10*toolbox.multiScore;
             toolbox.puntuacion = score;
             scoreText.GetComponent<Text>().text = "Score: " + score;
             Destroy(other.gameObject);
@@ -133,10 +137,9 @@ public class Player : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "BlueBattery")
-        {
-            getHealth.Stop();
-        }
+         getHealth.Stop();
+         loseHealth.Stop();
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -153,16 +156,11 @@ public class Player : MonoBehaviour
         }*/
 
 
-        /*
+        
         if (collision.tag == "RedBattery")
         {
-            hp -= 20;
-            if (score >= 5)
-            {
-                score = score - 5;
-            }
-            scoreText.GetComponent<Text>().text = "Score: " + score;
-        }/*/
+            loseHealth.Play();
+        }
         if (collision.tag == "BlueBattery")
         {
             getHealth.Play();
@@ -186,7 +184,9 @@ public class Player : MonoBehaviour
             {
                 hp = 100;
             }
+            pickHealth.Play();
             Destroy(collision.gameObject);
+            
         }
 
     }
@@ -196,6 +196,7 @@ public class Player : MonoBehaviour
         //deathPlayer.GetComponent<ParticleSystem>().startColor = gameObject.GetComponent<SpriteRenderer>().color;
         hp = 0;
         hpBar.value = hp;
+        Death.Play();
         percentText.GetComponent<Text>().text =  "0%";
         Instantiate(deathPlayer, transform.position, transform.rotation);
         Destroy(gameObject);
