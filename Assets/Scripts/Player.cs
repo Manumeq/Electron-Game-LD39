@@ -30,12 +30,16 @@ public class Player : MonoBehaviour
     public GameObject spawnCirculo;
     public GameObject spawnMolinoI;
     public GameObject spawnMolinoD;
-
+    public GameObject Score;
+    ToolBox toolbox;
     public Color[] colors;
 
     void Start()
     {
+        toolbox = ToolBox.Instance;
+        Score = GameObject.Find("Puntuacion");
         score = 0;
+        Debug.Log(Score);
         percentText = GameObject.Find("Percent");
         scoreText = GameObject.Find("Score");
 
@@ -102,6 +106,7 @@ public class Player : MonoBehaviour
             if (score >= 5)
             {
                 score = score - 1;
+                toolbox.puntuacion = score;
             }
             scoreText.GetComponent<Text>().text = "Score: " + score;
         }
@@ -116,6 +121,7 @@ public class Player : MonoBehaviour
         if (other.tag == "Changer")
         {
             score = score + 10;
+            toolbox.puntuacion = score;
             scoreText.GetComponent<Text>().text = "Score: " + score;
             Destroy(other.gameObject);
             CollisionChanger();
