@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\SpawnCircle.cs" />
     <Compile Include="Assets\Scripts\SpawnDestroy.cs" />
+    <Compile Include="Assets\Scripts\notDestroy.cs" />
     <Compile Include="Assets\Scripts\pila_horizontal.cs" />
     <Compile Include="Assets\Scripts\spawnMolino.cs" />
     <Compile Include="Assets\Scripts\spawnPoint.cs" />

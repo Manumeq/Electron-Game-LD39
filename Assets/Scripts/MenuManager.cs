@@ -20,6 +20,21 @@ public class MenuManager : MonoBehaviour {
         SceneManager.LoadScene("Main");
     }
 
+    public void optionsButton()
+    {
+        SceneManager.LoadScene("Opciones");
+    }
+
+    public void creditsButton()
+    {
+        SceneManager.LoadScene("Creditos");
+    }
+
+    public void returnButton()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
     public void exitButton()
     {
         Application.Quit();
