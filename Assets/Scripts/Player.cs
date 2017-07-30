@@ -44,7 +44,6 @@ public class Player : MonoBehaviour
     {
         toolbox = ToolBox.Instance;
         score = 0;
-        
         percentText = GameObject.Find("Percent");
         scoreText = GameObject.Find("Score");
 
@@ -54,6 +53,13 @@ public class Player : MonoBehaviour
         hpBar.value = hp;
         start = false;
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+
+        pickHealth.volume = toolbox.sonido;
+        pickScore.volume = toolbox.sonido;
+        loseHealth.volume = toolbox.sonido;
+        Death.volume = toolbox.sonido;
+        salto.volume = toolbox.sonido;
+        getHealth.volume = toolbox.sonido;
         /*  ---ALTERNATE WAY OF DEFINING COLORS PRIVATELY
         colors = new Color[4];
         colors[0] = new Color(255, 255, 255);
@@ -70,7 +76,7 @@ public class Player : MonoBehaviour
         //comenzamos a perder energia cuando empieza el juego
         if (start) { 
             hp = hp - (decreaseSpeed * Time.deltaTime);
-            decreaseSpeed += (0.05f * Time.deltaTime - toolbox.aceleracion);
+            decreaseSpeed += ((0.05f - toolbox.aceleracion )* Time.deltaTime );
 
             hpBar.value = hp;
             percentText.GetComponent<Text>().text = hp.ToString("#") + "%";
@@ -112,14 +118,13 @@ public class Player : MonoBehaviour
             {
                 score = score - 1;
                 toolbox.puntuacion = score;
-                Debug.Log(toolbox.puntuacion);
             }
             scoreText.GetComponent<Text>().text = "Score: " + score;
         }
         if (other.tag == "BlueBattery")
         {
-            hp += 40 * Time.deltaTime;
-            if (hp > 100)
+            hp += (40-toolbox.armadura) * Time.deltaTime;
+            if (hp > (100+toolbox.extraVida))
             {
                 hp = 100;
             }

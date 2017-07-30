@@ -8,6 +8,10 @@ public class ToolBox : Singleton<ToolBox> {
     public int puntuacion;
     public float aceleracion;
     public int multiScore;
+    public float sonido;
+    public int monedas;
+    public int armadura;
+    public int extraVida;
     void Awake()
     {
         gameObject.AddComponent<AudioSource>();
@@ -18,6 +22,37 @@ public class ToolBox : Singleton<ToolBox> {
         multiScore = 1;
         aceleracion = 0;
         puntuacion = 0;
+        sonido = 0.5f;
+        armadura = 0;
+        extraVida = 0;
+    }
+    public void comprarPolarizacion()
+    {
+
+    }
+    public void comprarAceleracion()
+    {
+        aceleracion = 0.02f;
+    }
+    public void comprarVidaMax()
+    {
+
+    }
+    public void comprarArmadura()
+    {
+        armadura = 20;
+    }
+    public void comprarScore()
+    {
+        puntuacion = 4;
+    }
+    public void comprarRevivir()
+    {
+
+    }
+    public void volverAtras()
+    {
+
     }
 
 }

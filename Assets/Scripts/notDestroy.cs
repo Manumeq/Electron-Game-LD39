@@ -16,15 +16,15 @@ public class notDestroy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        volumeBGM = GameObject.Find("Slider_BGM").GetComponent<Slider>().value;
+        /*volumeBGM = GameObject.Find("Slider_BGM").GetComponent<Slider>().value;
         volumeEFFECTS = GameObject.Find("Slider_EFFECTS").GetComponent<Slider>().value;
 
-        gameObject.GetComponent<AudioSource>().volume=volumeBGM;
+        gameObject.GetComponent<AudioSource>().volume=volumeBGM;*/
     }
 
     private void move()
     {
-        main = SceneManager.GetSceneByName("Main");
-        SceneManager.MoveGameObjectToScene(gameObject, main);
+        /*main = SceneManager.GetSceneByName("Main");
+        SceneManager.MoveGameObjectToScene(gameObject, main);*/
     }
 }
