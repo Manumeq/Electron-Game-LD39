@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
+    <Compile Include="Assets\Scripts\SliderSonido.cs" />
     <Compile Include="Assets\Scripts\SpawnCircle.cs" />
     <Compile Include="Assets\Scripts\SpawnDestroy.cs" />
     <Compile Include="Assets\Scripts\spawnMolino.cs" />

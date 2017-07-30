@@ -11,7 +11,9 @@ public class ToolBox : Singleton<ToolBox> {
         gameObject.AddComponent<AudioSource>();
         gameObject.GetComponent<AudioSource>().clip = GameObject.Find("menuOst").GetComponent<AudioSource>().clip;
         gameObject.GetComponent<AudioSource>().loop = true;
+        gameObject.GetComponent<AudioSource>().volume = 0.5f;
         gameObject.GetComponent<AudioSource>().Play();
     }
+
 }
 
