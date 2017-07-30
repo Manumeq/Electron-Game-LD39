@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             //esto evita que pasen cosas raras al empezar
             if (start)
             {
-
+                salto.Play();
                 rigidBody.velocity = Vector2.up * jumpForce;
                
             }
