@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     private GameObject scoreText;
     private int score;
 
+    public AudioSource pickScore;
+    public AudioSource getHealth;
     public SpriteRenderer sprenderer;
     public Rigidbody2D rigidBody;
     public GameObject deathPlayer;
@@ -30,16 +32,15 @@ public class Player : MonoBehaviour
     public GameObject spawnCirculo;
     public GameObject spawnMolinoI;
     public GameObject spawnMolinoD;
-    public GameObject Score;
+    public GameObject spawnRombo;
     ToolBox toolbox;
     public Color[] colors;
 
     void Start()
     {
         toolbox = ToolBox.Instance;
-        Score = GameObject.Find("Puntuacion");
         score = 0;
-        Debug.Log(Score);
+        
         percentText = GameObject.Find("Percent");
         scoreText = GameObject.Find("Score");
 
@@ -107,6 +108,7 @@ public class Player : MonoBehaviour
             {
                 score = score - 1;
                 toolbox.puntuacion = score;
+                Debug.Log(toolbox.puntuacion);
             }
             scoreText.GetComponent<Text>().text = "Score: " + score;
         }
@@ -129,7 +131,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "BlueBattery")
+        {
+            getHealth.Stop();
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         /*if (collision.tag == "Changer")
@@ -154,19 +162,12 @@ public class Player : MonoBehaviour
                 score = score - 5;
             }
             scoreText.GetComponent<Text>().text = "Score: " + score;
-        }
+        }/*/
         if (collision.tag == "BlueBattery")
         {
-            if (hp < 60)
-            {
-                hp += 40;
-            }
-            else
-            {
-                hp = 100;
-            }
+            getHealth.Play();
         }
-        if (collision.tag == "Changer")
+        /*if (collision.tag == "Changer")
         {
             score = score + 10;
             scoreText.GetComponent<Text>().text = "Score: " + score;
@@ -175,6 +176,18 @@ public class Player : MonoBehaviour
 
         }
         */
+        if (collision.tag == "BlueDes")
+        {
+            if (hp < 80)
+            {
+                hp += 20;
+            }
+            else
+            {
+                hp = 100;
+            }
+            Destroy(collision.gameObject);
+        }
 
     }
 
@@ -213,9 +226,10 @@ public class Player : MonoBehaviour
     }
     void CollisionChanger()
     {
+        pickScore.Play();
         Vector3 variable = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 8, gameObject.transform.position.z);
         Instantiate(Changer, variable, gameObject.transform.rotation);
-        int random = Random.Range(0, 3);
+        int random = Random.Range(0, 4);
         int random2 = Random.Range(0, 2);
         switch (random)
         {
@@ -236,6 +250,9 @@ public class Player : MonoBehaviour
                 {
                     spawnMolinoD.GetComponent<spawnMolino>().condition = true;
                 }
+                break;
+            case 3:
+                spawnRombo.GetComponent<spawnRombo>().condition = true;
                 break;
         }
     }

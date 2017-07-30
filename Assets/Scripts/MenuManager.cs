@@ -7,8 +7,8 @@ public class MenuManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        ToolBox toolbox = ToolBox.Instance;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -18,6 +18,9 @@ public class MenuManager : MonoBehaviour {
     public void startButton()
     {
         SceneManager.LoadScene("Main");
+        ToolBox toolbox = ToolBox.Instance;
+        toolbox.GetComponent<AudioSource>().clip = GameObject.Find("StartButton").GetComponent<AudioSource>().clip;
+        toolbox.GetComponent<AudioSource>().Play();
     }
 
     public void optionsButton()

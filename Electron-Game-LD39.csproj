@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scripts\SpawnDestroy.cs" />
     <Compile Include="Assets\Scripts\spawnMolino.cs" />
     <Compile Include="Assets\Scripts\spawnPoint.cs" />
+    <Compile Include="Assets\Scripts\spawnRombo.cs" />
     <Compile Include="Assets\Scripts\spawnSpawn.cs" />
     <Compile Include="Assets\Scripts\ToolBox.cs" />
   </ItemGroup>
