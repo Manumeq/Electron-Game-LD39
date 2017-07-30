@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-        ToolBox toolbox = ToolBox.Instance;
+    ToolBox toolbox;
+    // Use this for initialization
+    void Start () {
+        toolbox = ToolBox.Instance;
     }
 	
 	// Update is called once per frame
@@ -18,9 +18,13 @@ public class MenuManager : MonoBehaviour {
     public void startButton()
     {
         SceneManager.LoadScene("Main");
-        ToolBox toolbox = ToolBox.Instance;
         toolbox.GetComponent<AudioSource>().clip = GameObject.Find("StartButton").GetComponent<AudioSource>().clip;
         toolbox.GetComponent<AudioSource>().Play();
+    }
+
+    public void shopButton()
+    {
+        SceneManager.LoadScene("Tienda");
     }
 
     public void optionsButton()
@@ -41,6 +45,37 @@ public class MenuManager : MonoBehaviour {
     public void exitButton()
     {
         Application.Quit();
+    }
+
+    //shop functions
+    public void chargeBoostButton()
+    {
+
+    }
+
+    public void relativityButton()
+    {
+
+    }
+
+    public void magnetShieldButton()
+    {
+
+    }
+
+    public void lastBatteryButton()
+    {
+
+    }
+
+    public void multiplierButton()
+    {
+
+    }
+
+    public void polarizerButton()
+    {
+
     }
 
 }
