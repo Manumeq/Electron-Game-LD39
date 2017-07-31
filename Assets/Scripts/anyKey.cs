@@ -17,6 +17,7 @@ public class anyKey : MonoBehaviour {
             SceneManager.LoadScene("Menu");
             toolbox.GetComponent<AudioSource>().clip = GameObject.Find("Canvas").GetComponent<AudioSource>().clip;
             toolbox.GetComponent<AudioSource>().Play();
+            toolbox.puntuacion = 0;
         }
     }
     

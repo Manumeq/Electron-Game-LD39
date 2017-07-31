@@ -16,6 +16,7 @@ public class ToolBox : Singleton<ToolBox> {
     public bool revivir;
     public bool polar;
     public int maxPuntuacion;
+    public bool record;
     void Awake()
     {
         gameObject.AddComponent<AudioSource>();
@@ -30,9 +31,10 @@ public class ToolBox : Singleton<ToolBox> {
         sonido = 0.5f;
         armadura = 0;
         extraVida = 0;
-        monedas = 99999;
+        monedas = 0;
         revivir = false;
         polar = false;
+        record = false;
     }
 
     //9999
@@ -126,9 +128,10 @@ public class ToolBox : Singleton<ToolBox> {
         if (maxPuntuacion < puntuacion)
         {
             maxPuntuacion = puntuacion;
+            record = true;
         }
         SceneManager.LoadScene("Puntuacion");
-       
+        
         gameObject.GetComponent<AudioSource>().Stop();
     }
 
