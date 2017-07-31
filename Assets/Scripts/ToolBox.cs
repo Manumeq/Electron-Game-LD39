@@ -36,13 +36,19 @@ public class ToolBox : Singleton<ToolBox> {
         polar = false;
         record = false;
     }
-
-    //9999
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            monedas = 9999;
+        }   
+    }
+    //2000
     public bool comprarPolarizacion()
     {
-        if (monedas > 9999)
+        if (monedas >= 2000)
         {
-            monedas -= 9999;
+            monedas -= 2000;
             polar = true;
             return true;
         }
@@ -51,12 +57,12 @@ public class ToolBox : Singleton<ToolBox> {
             return false;
         }
     }
-    //400
+    //125
     public bool comprarAceleracion()//si
     {
-        if (monedas > 400)
+        if (monedas >= 125)
         {
-            monedas -= 400;
+            monedas -= 125;
             aceleracion = 0.02f;
             return true;
         }
@@ -65,12 +71,12 @@ public class ToolBox : Singleton<ToolBox> {
             return false;
         }
     }
-    //300
+    //100
     public bool comprarVidaMax()//si
     {
-        if (monedas > 300)
+        if (monedas >= 100)
         {
-            monedas -= 300;
+            monedas -= 100;
             extraVida = 25;
             return true;
         }
@@ -79,12 +85,12 @@ public class ToolBox : Singleton<ToolBox> {
             return false;
         }
     }
-    //1500
+    //500
     public bool comprarArmadura()//si
     {
-        if (monedas > 1500)
+        if (monedas >= 500)
         {
-            monedas -= 1500;
+            monedas -= 500;
             armadura = 20;
             return true;
         }
@@ -94,12 +100,12 @@ public class ToolBox : Singleton<ToolBox> {
         }
     }
 
-    //3000
+    //1000
     public bool comprarScore()
     {
-        if (monedas > 3000)
+        if (monedas >= 1000)
         {
-            monedas -= 3000;
+            monedas -= 1000;
             multiScore = 4;
             return true;
         }
@@ -108,12 +114,12 @@ public class ToolBox : Singleton<ToolBox> {
             return false;
         }
     }
-    //5000
+    //1500
     public bool comprarRevivir()
     {
-        if (monedas > 5000)
+        if (monedas >= 1500)
         {
-            monedas -= 5000;
+            monedas -= 1500;
             revivir = true;
             return true;
         }
