@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ToolBox : Singleton<ToolBox> {
     protected ToolBox() { }
@@ -12,6 +13,8 @@ public class ToolBox : Singleton<ToolBox> {
     public int monedas;
     public int armadura;
     public int extraVida;
+    public bool revivir;
+    public bool polar;
     void Awake()
     {
         gameObject.AddComponent<AudioSource>();
@@ -25,42 +28,103 @@ public class ToolBox : Singleton<ToolBox> {
         sonido = 0.5f;
         armadura = 0;
         extraVida = 0;
+        monedas = 99999;
+        revivir = false;
+        polar = false;
     }
 
     //9999
-    public void comprarPolarizacion()
+    public bool comprarPolarizacion()
     {
-
+        if (monedas > 9999)
+        {
+            monedas -= 9999;
+            polar = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     //400
-    public void comprarAceleracion()
+    public bool comprarAceleracion()//si
     {
-        aceleracion = 0.02f;
+        if (monedas > 400)
+        {
+            monedas -= 400;
+            aceleracion = 0.02f;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     //300
-    public void comprarVidaMax()
+    public bool comprarVidaMax()//si
     {
-
+        if (monedas > 300)
+        {
+            monedas -= 300;
+            extraVida = 25;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     //1500
-    public void comprarArmadura()
+    public bool comprarArmadura()//si
     {
-        armadura = 20;
+        if (monedas > 1500)
+        {
+            monedas -= 1500;
+            armadura = 20;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     //3000
-    public void comprarScore()
+    public bool comprarScore()
     {
-        puntuacion = 4;
+        if (monedas > 3000)
+        {
+            monedas -= 3000;
+            multiScore = 4;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     //5000
-    public void comprarRevivir()
+    public bool comprarRevivir()
     {
-
+        if (monedas > 5000)
+        {
+            monedas -= 5000;
+            revivir = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public void volverAtras()
     {
-
+        monedas += puntuacion / 10;
+        puntuacion = 0;
+        SceneManager.LoadScene("Menu");
+        gameObject.GetComponent<AudioSource>().clip = GameObject.Find("soundEfeccts").GetComponent<AudioSource>().clip;
+        gameObject.GetComponent<AudioSource>().Play();
     }
 
 }

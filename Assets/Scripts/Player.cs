@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public float jumpForce = 10f;
 
     private bool start;
+    private bool revivir;
+    private bool polar;
 
 
     //variables para el control de la hp bar y la hp
@@ -42,15 +44,32 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+
         toolbox = ToolBox.Instance;
+        if (toolbox.extraVida != 0){
+            hpBar.maxValue = 125;
+
+        }
+
         score = 0;
         percentText = GameObject.Find("Percent");
         scoreText = GameObject.Find("Score");
+        revivir = toolbox.revivir;
+        polar = toolbox.polar;
+        if (polar)
+        {
+            gameObject.GetComponentInChildren<Light>().color = new Color(20f / 255f, 8f / 255f, 0f / 255f);
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(139f / 255f, 62f / 255f, 44f / 255f);
+        }
+
+        hp += toolbox.extraVida;
+
 
         percentText.GetComponent<Text>().text = hp.ToString() + "%";
         scoreText.GetComponent<Text>().text = "Score: " + score;
 
-        hpBar.value = hp;
+        hpBar.value = hp +toolbox.extraVida;
+        Debug.Log(toolbox.extraVida);
         start = false;
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
 
@@ -77,7 +96,6 @@ public class Player : MonoBehaviour
         if (start) { 
             hp = hp - (decreaseSpeed * Time.deltaTime);
             decreaseSpeed += ((0.05f - toolbox.aceleracion )* Time.deltaTime );
-
             hpBar.value = hp;
             percentText.GetComponent<Text>().text = hp.ToString("#") + "%";
 
@@ -85,6 +103,11 @@ public class Player : MonoBehaviour
             {
                 killPlayer();
             }
+        }
+        if (revivir && hp <= 10)
+        {
+            hp = 100 + toolbox.extraVida;
+            revivir = false;
         }
         if (Camera.main.gameObject.transform.position.y - gameObject.transform.position.y > Camera.main.gameObject.GetComponent<Camera>().orthographicSize)
         {
@@ -111,32 +134,56 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "RedBattery")
-        {
-            hp -= 40 * Time.deltaTime;
-            if (score >= 5)
-            {
-                score = score - 1;
-                toolbox.puntuacion = score;
-            }
-            scoreText.GetComponent<Text>().text = "Score: " + score;
-        }
-        if (other.tag == "BlueBattery")
-        {
-            hp += (40-toolbox.armadura) * Time.deltaTime;
-            if (hp > (100+toolbox.extraVida))
-            {
-                hp = 100;
-            }
-        }
         if (other.tag == "Changer")
         {
-            score = score + 10*toolbox.multiScore;
+            score = score + 10 * toolbox.multiScore;
             toolbox.puntuacion = score;
             scoreText.GetComponent<Text>().text = "Score: " + score;
             Destroy(other.gameObject);
             CollisionChanger();
 
+        }
+        if (!polar)
+        {
+            if (other.tag == "RedBattery")
+            {
+                hp -= (40 - toolbox.armadura) * Time.deltaTime;
+                if (score >= 5)
+                {
+                    score = score - 1;
+                    toolbox.puntuacion = score;
+                }
+                scoreText.GetComponent<Text>().text = "Score: " + score;
+            }
+            if (other.tag == "BlueBattery")
+            {
+                hp += 40 * Time.deltaTime;
+                if (hp > (100 + toolbox.extraVida))
+                {
+                    hp = 100 + toolbox.extraVida;
+                }
+            }
+        }
+        else
+        {
+            if (other.tag == "BlueBattery")
+            {
+                hp -= (40 - toolbox.armadura) * Time.deltaTime;
+                if (score >= 5)
+                {
+                    score = score - 1;
+                    toolbox.puntuacion = score;
+                }
+                scoreText.GetComponent<Text>().text = "Score: " + score;
+            }
+            if (other.tag == "RedBattery")
+            {
+                hp += 40 * Time.deltaTime;
+                if (hp > (100 + toolbox.extraVida))
+                {
+                    hp = 100 + toolbox.extraVida;
+                }
+            }
         }
     }
 
@@ -160,39 +207,69 @@ public class Player : MonoBehaviour
             killPlayer();
         }*/
 
+        if (!polar)
+        {
+            if (collision.tag == "RedBattery")
+            {
+                loseHealth.Play();
+            }
+            if (collision.tag == "BlueBattery")
+            {
+                getHealth.Play();
+            }
+            /*if (collision.tag == "Changer")
+            {
+                score = score + 10;
+                scoreText.GetComponent<Text>().text = "Score: " + score;
+                Destroy(collision.gameObject);
+                CollisionChanger();
 
+            }
+            */
+            if (collision.tag == "BlueDes")
+            {
+                if (hp < 80 + toolbox.extraVida)
+                {
+                    hp += 20;
+                }
+                else
+                {
+                    hp = 100 + toolbox.extraVida;
+                }
+                pickHealth.Play();
+                Destroy(collision.gameObject);
+
+            }
+        }
+        else
+        {
+            if (collision.tag == "BlueBattery")
+            {
+                loseHealth.Play();
+            }
+            if (collision.tag == "RedBattery")
+            {
+                getHealth.Play();
+            }
+            /*if (collision.tag == "Changer")
+            {
+                score = score + 10;
+                scoreText.GetComponent<Text>().text = "Score: " + score;
+                Destroy(collision.gameObject);
+                CollisionChanger();
+
+            }
+            */
+            if (collision.tag == "BlueDes")
+            {
+                hp -= 10;
+                pickHealth.Play();
+                Destroy(collision.gameObject);
+
+            }
+        }
         
-        if (collision.tag == "RedBattery")
-        {
-            loseHealth.Play();
-        }
-        if (collision.tag == "BlueBattery")
-        {
-            getHealth.Play();
-        }
-        /*if (collision.tag == "Changer")
-        {
-            score = score + 10;
-            scoreText.GetComponent<Text>().text = "Score: " + score;
-            Destroy(collision.gameObject);
-            CollisionChanger();
-
-        }
-        */
-        if (collision.tag == "BlueDes")
-        {
-            if (hp < 80)
-            {
-                hp += 20;
-            }
-            else
-            {
-                hp = 100;
-            }
-            pickHealth.Play();
-            Destroy(collision.gameObject);
-            
-        }
+        
 
     }
 
@@ -204,6 +281,7 @@ public class Player : MonoBehaviour
         Death.Play();
         percentText.GetComponent<Text>().text =  "0%";
         Instantiate(deathPlayer, transform.position, transform.rotation);
+        toolbox.volverAtras();
         Destroy(gameObject);
     }
 
