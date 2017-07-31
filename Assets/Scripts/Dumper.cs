@@ -16,4 +16,9 @@ public class Dumper : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+    private void OnDestroy()
+    {
+        ToolBox toolbox = ToolBox.Instance;
+        toolbox.volverAtras();
+    }
 }

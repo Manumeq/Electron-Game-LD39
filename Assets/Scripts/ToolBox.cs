@@ -15,6 +15,7 @@ public class ToolBox : Singleton<ToolBox> {
     public int extraVida;
     public bool revivir;
     public bool polar;
+    public int maxPuntuacion;
     void Awake()
     {
         gameObject.AddComponent<AudioSource>();
@@ -22,6 +23,7 @@ public class ToolBox : Singleton<ToolBox> {
         gameObject.GetComponent<AudioSource>().loop = true;
         gameObject.GetComponent<AudioSource>().volume = 0.5f;
         gameObject.GetComponent<AudioSource>().Play();
+        maxPuntuacion = 0;
         multiScore = 1;
         aceleracion = 0;
         puntuacion = 0;
@@ -121,10 +123,13 @@ public class ToolBox : Singleton<ToolBox> {
     public void volverAtras()
     {
         monedas += puntuacion / 10;
-        puntuacion = 0;
-        SceneManager.LoadScene("Menu");
-        gameObject.GetComponent<AudioSource>().clip = GameObject.Find("soundEfeccts").GetComponent<AudioSource>().clip;
-        gameObject.GetComponent<AudioSource>().Play();
+        if (maxPuntuacion < puntuacion)
+        {
+            maxPuntuacion = puntuacion;
+        }
+        SceneManager.LoadScene("Puntuacion");
+       
+        gameObject.GetComponent<AudioSource>().Stop();
     }
 
 }

@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
             hpBar.maxValue = 125;
 
         }
-
         score = 0;
         percentText = GameObject.Find("Percent");
         scoreText = GameObject.Find("Score");
@@ -281,8 +280,11 @@ public class Player : MonoBehaviour
         Death.Play();
         percentText.GetComponent<Text>().text =  "0%";
         Instantiate(deathPlayer, transform.position, transform.rotation);
-        toolbox.volverAtras();
         Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        Death.Play();
     }
 
     void setRandomColor()
