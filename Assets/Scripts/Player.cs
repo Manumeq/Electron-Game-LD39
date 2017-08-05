@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
         {
             if (other.tag == "RedBattery")
             {
-                hp -= (40 - toolbox.armadura) * Time.deltaTime;
+                hp -= (80 - 2*toolbox.armadura) * Time.deltaTime;
                 if (score >= 5)
                 {
                     score = score - 1;
@@ -167,7 +167,7 @@ public class Player : MonoBehaviour
         {
             if (other.tag == "BlueBattery")
             {
-                hp -= (40 - toolbox.armadura) * Time.deltaTime;
+                hp -= (80 - 2 * toolbox.armadura) * Time.deltaTime;
                 if (score >= 5)
                 {
                     score = score - 1;

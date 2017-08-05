@@ -130,7 +130,7 @@ public class ToolBox : Singleton<ToolBox> {
     }
     public void volverAtras()
     {
-        monedas += puntuacion / 10;
+        monedas += puntuacion / 5;
         if (maxPuntuacion < puntuacion)
         {
             maxPuntuacion = puntuacion;
