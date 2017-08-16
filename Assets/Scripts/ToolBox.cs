@@ -13,27 +13,30 @@ public class ToolBox : Singleton<ToolBox> {
     public int monedas;
     public int armadura;
     public int extraVida;
-    public bool revivir;
-    public bool polar;
+    public int revivir;
+    public int polar;
     public int maxPuntuacion;
+    public int acelerado;
     public bool record;
     void Awake()
     {
+        
         gameObject.AddComponent<AudioSource>();
         gameObject.GetComponent<AudioSource>().clip = GameObject.Find("menuOst").GetComponent<AudioSource>().clip;
         gameObject.GetComponent<AudioSource>().loop = true;
         gameObject.GetComponent<AudioSource>().volume = 0.5f;
         gameObject.GetComponent<AudioSource>().Play();
         maxPuntuacion = 0;
-        multiScore = 1;
+        multiScore = 0;
         aceleracion = 0;
         puntuacion = 0;
         sonido = 0.5f;
         armadura = 0;
         extraVida = 0;
         monedas = 0;
-        revivir = false;
-        polar = false;
+        revivir = 0;
+        polar = 0;
+        acelerado = 0;
         record = false;
     }
     private void Update()
@@ -49,7 +52,7 @@ public class ToolBox : Singleton<ToolBox> {
         if (monedas >= 2000)
         {
             monedas -= 2000;
-            polar = true;
+            polar = 1;
             return true;
         }
         else
@@ -63,7 +66,7 @@ public class ToolBox : Singleton<ToolBox> {
         if (monedas >= 125)
         {
             monedas -= 125;
-            aceleracion = 0.02f;
+            acelerado = 1;
             return true;
         }
         else
@@ -106,7 +109,7 @@ public class ToolBox : Singleton<ToolBox> {
         if (monedas >= 1000)
         {
             monedas -= 1000;
-            multiScore = 4;
+            multiScore = 3;
             return true;
         }
         else
@@ -120,7 +123,7 @@ public class ToolBox : Singleton<ToolBox> {
         if (monedas >= 1500)
         {
             monedas -= 1500;
-            revivir = true;
+            revivir = 1;
             return true;
         }
         else
@@ -137,6 +140,7 @@ public class ToolBox : Singleton<ToolBox> {
             record = true;
         }
         SceneManager.LoadScene("Puntuacion");
+        PlayerPrefs.SetInt("monedas", monedas);
         
         gameObject.GetComponent<AudioSource>().Stop();
     }

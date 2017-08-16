@@ -95,6 +95,8 @@
     <Compile Include="Assets\Scripts\ToolBox.cs" />
     <Compile Include="Assets\Scripts\anyKey.cs" />
     <Compile Include="Assets\Scripts\checkRecord.cs" />
+    <Compile Include="Assets\Scripts\checkShopButtons.cs" />
+    <Compile Include="Assets\Scripts\loadMoney.cs" />
     <Compile Include="Assets\Scripts\mostrarMaxPuntuacion.cs" />
     <Compile Include="Assets\Scripts\mostrarPuntuacion.cs" />
     <Compile Include="Assets\Scripts\notDestroy.cs" />

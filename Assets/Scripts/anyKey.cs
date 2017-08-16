@@ -14,6 +14,7 @@ public class anyKey : MonoBehaviour {
 	void Update () {
         if (Input.anyKeyDown)
         {
+            PlayerPrefs.SetInt("maxScore", toolbox.maxPuntuacion);
             SceneManager.LoadScene("Menu");
             toolbox.GetComponent<AudioSource>().clip = GameObject.Find("Canvas").GetComponent<AudioSource>().clip;
             toolbox.GetComponent<AudioSource>().Play();

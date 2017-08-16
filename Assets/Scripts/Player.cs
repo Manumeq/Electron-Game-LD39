@@ -9,8 +9,8 @@ public class Player : MonoBehaviour
     public float jumpForce = 10f;
 
     private bool start;
-    private bool revivir;
-    private bool polar;
+    private int revivir;
+    private int polar;
 
 
     //variables para el control de la hp bar y la hp
@@ -50,12 +50,17 @@ public class Player : MonoBehaviour
             hpBar.maxValue = 125;
 
         }
+
+        if (toolbox.acelerado == 1)
+        {
+            toolbox.aceleracion = 0.02f;
+        }
         score = 0;
         percentText = GameObject.Find("Percent");
         scoreText = GameObject.Find("Score");
         revivir = toolbox.revivir;
         polar = toolbox.polar;
-        if (polar)
+        if (polar==1)
         {
             gameObject.GetComponentInChildren<Light>().color = new Color(20f / 255f, 8f / 255f, 0f / 255f);
             gameObject.GetComponent<SpriteRenderer>().color = new Color(139f / 255f, 62f / 255f, 44f / 255f);
@@ -103,16 +108,16 @@ public class Player : MonoBehaviour
                 killPlayer();
             }
         }
-        if (revivir && hp <= 10)
+        if (revivir==1 && hp <= 10)
         {
             hp = 100 + toolbox.extraVida;
-            revivir = false;
+            revivir = 0;
         }
         if (Camera.main.gameObject.transform.position.y - gameObject.transform.position.y > Camera.main.gameObject.GetComponent<Camera>().orthographicSize)
         {
             killPlayer();
         }
-        if (Input.GetButtonDown("Jump") || Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Jump") || Input.GetMouseButtonDown(0)||Input.GetTouch(0).phase == TouchPhase.Began )
         {
             //al empezar se pone la gravedad a 0 hasta la primera ejecucion del update donde se pone su valor normal
             //esto evita que pasen cosas raras al empezar
@@ -120,7 +125,6 @@ public class Player : MonoBehaviour
             {
                 salto.Play();
                 rigidBody.velocity = Vector2.up * jumpForce;
-               
             }
             else
             {
@@ -135,17 +139,18 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Changer")
         {
-            score = score + 10 * toolbox.multiScore;
+            score = score + 10 * (toolbox.multiScore+1);
             toolbox.puntuacion = score;
             scoreText.GetComponent<Text>().text = "Score: " + score;
             Destroy(other.gameObject);
             CollisionChanger();
 
         }
-        if (!polar)
+        if (polar==0)
         {
             if (other.tag == "RedBattery")
             {
+                jumpForce = 3;
                 hp -= (80 - 2*toolbox.armadura) * Time.deltaTime;
                 if (score >= 5)
                 {
@@ -167,6 +172,7 @@ public class Player : MonoBehaviour
         {
             if (other.tag == "BlueBattery")
             {
+                jumpForce = 3;
                 hp -= (80 - 2 * toolbox.armadura) * Time.deltaTime;
                 if (score >= 5)
                 {
@@ -188,6 +194,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        jumpForce = 10;
          getHealth.Stop();
          loseHealth.Stop();
         
@@ -206,7 +213,7 @@ public class Player : MonoBehaviour
             killPlayer();
         }*/
 
-        if (!polar)
+        if (polar==0)
         {
             if (collision.tag == "RedBattery")
             {
